@@ -270,4 +270,200 @@ Consider adding these optimizations:
 
 ---
 
+# Deploy your Astro Website to Netlify
+
+This section covers deploying your Astro website to Netlify.
+
+## Prerequisites
+
+- A GitHub, GitLab, or Bitbucket repository containing your Astro project
+- A Netlify account
+- The `@astrojs/netlify` adapter installed (already configured)
+
+## Step 1: Configure Astro for Netlify
+
+### 1.1 Verify Netlify Adapter Configuration
+
+Your `astro.config.mjs` should have the Netlify adapter configured:
+
+```javascript
+import netlify from '@astrojs/netlify';
+
+export default defineConfig({
+  site: 'https://www.robguilar.com',
+  output: 'static',
+  adapter: netlify(),
+  // ... other config
+});
+```
+
+**Important**: The `site` URL should match your Netlify domain:
+- For Netlify subdomain: `https://your-site-name.netlify.app`
+- For custom domain: `https://yourdomain.com`
+
+### 1.2 Verify netlify.toml Configuration
+
+Your project should have a `netlify.toml` file in the root directory:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+```
+
+This configuration:
+- Sets the build command to `npm run build`
+- Specifies the publish directory as `dist` (Astro's default output)
+- Handles 404 errors by redirecting to your custom 404 page
+
+## Step 2: Connect Repository to Netlify
+
+### 2.1 Create a New Site
+
+1. Log in to your [Netlify account](https://app.netlify.com)
+2. Click **Add new site** → **Import an existing project**
+3. Connect your Git provider (GitHub, GitLab, or Bitbucket)
+4. Select your repository
+
+### 2.2 Configure Build Settings
+
+Netlify should automatically detect your settings from `netlify.toml`, but verify:
+
+- **Build command**: `npm run build`
+- **Publish directory**: `dist`
+- **Branch to deploy**: `main` (or your default branch)
+
+### 2.3 Deploy
+
+1. Click **Deploy site**
+2. Wait for the build to complete
+3. Your site will be live at `https://your-site-name.netlify.app`
+
+## Step 3: Configure Custom Domain (Optional)
+
+If you're using a custom domain:
+
+1. Go to **Site settings** → **Domain management**
+2. Click **Add custom domain**
+3. Enter your domain name
+4. Follow Netlify's DNS configuration instructions
+5. Update the `site` URL in `astro.config.mjs` to match your custom domain
+
+## Step 4: Enable Automatic Deployments
+
+Netlify automatically deploys:
+- Every push to your main branch
+- Pull requests (creates deploy previews)
+- Branch deploys for other branches
+
+You can configure these in **Site settings** → **Build & deploy**.
+
+## Troubleshooting Netlify Issues
+
+### Common Issues
+
+1. **404 Errors on Netlify**
+
+   - **Problem**: Pages return 404 errors
+   - **Solution**: 
+     - Verify `netlify.toml` exists and is configured correctly
+     - Ensure `publish = "dist"` matches your build output
+     - Check that the Netlify adapter is installed and configured in `astro.config.mjs`
+     - Verify the build completes successfully in Netlify's build logs
+
+2. **Build Failures**
+
+   - Check the build logs in Netlify's deploy details
+   - Ensure Node.js version is compatible (Netlify uses Node 18 by default)
+   - Verify all dependencies are in `package.json`
+   - Check for environment variable requirements
+
+3. **Asset Loading Issues**
+
+   - Verify all assets are in the `public/` directory
+   - Check that image paths are relative and correct
+   - Ensure the `site` URL in `astro.config.mjs` matches your Netlify domain
+
+4. **Environment Variables**
+
+   - Go to **Site settings** → **Environment variables**
+   - Add any required environment variables
+   - Redeploy after adding variables
+
+### Debugging Steps
+
+1. **Check Build Logs**
+   - Go to your site's **Deploys** tab in Netlify
+   - Click on a failed deploy to see detailed logs
+   - Look for error messages related to build failures
+
+2. **Test Locally**
+   ```bash
+   npm run build
+   npm run preview
+   ```
+   Verify the build output in `dist/` directory
+
+3. **Verify Configuration**
+   - Check `astro.config.mjs` has the Netlify adapter
+   - Ensure `netlify.toml` exists and is correctly formatted
+   - Verify the `site` URL matches your Netlify domain
+
+4. **Clear Cache and Redeploy**
+   - Go to **Deploys** → **Trigger deploy** → **Clear cache and deploy site**
+
+## Advanced Netlify Configuration
+
+### Environment-Specific Builds
+
+You can configure different settings for different branches:
+
+```toml
+[build.environment]
+  NODE_VERSION = "20"
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "preview"
+```
+
+### Headers and Redirects
+
+Add custom headers or additional redirects:
+
+```toml
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+[[redirects]]
+  from = "/old-page"
+  to = "/new-page"
+  status = 301
+```
+
+### Build Plugins
+
+Netlify offers build plugins for additional functionality:
+- Image optimization
+- Cache control
+- Analytics integration
+
+## Resources
+
+- [Astro Netlify Documentation](https://docs.astro.build/en/guides/deploy/netlify/)
+- [Netlify Documentation](https://docs.netlify.com/)
+- [Netlify Build Configuration](https://docs.netlify.com/configure-builds/file-based-configuration/)
+
+---
+
 **Note**: This documentation is specific to your Astro project configuration. Adjust the site URL and other settings according to your specific deployment requirements.

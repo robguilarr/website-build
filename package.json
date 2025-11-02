@@ -28,5 +28,8 @@
     "remark-math": "^6.0.0",
     "tailwindcss": "^4.1.16",
     "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/netlify": "^6.6.0"
   }
 }

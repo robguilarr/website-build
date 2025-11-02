@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import netlify from '@astrojs/netlify';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
@@ -16,6 +17,8 @@ const katexOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.robguilar.com',
+  output: 'static',
+  adapter: netlify(),
   markdown: {
     remarkPlugins: [remarkReadingTime],
     shikiConfig: {
