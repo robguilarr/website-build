@@ -15,7 +15,7 @@ const katexOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cv.coderdiaz.com',
+  site: 'https://www.robguilar.com',
   markdown: {
     remarkPlugins: [remarkReadingTime],
     shikiConfig: {

@@ -1,7 +1,7 @@
 ---
 import { getImage, Font } from 'astro:assets';
 import type { Seo } from '@/lib/constants'
-import { DEFAULT_CONFIGURATION } from '@/lib/constants';
+import { DEFAULT_CONFIGURATION, GOOGLE_ANALYTICS_ID } from '@/lib/constants';
 import { generateAbsoluteUrl } from '@/lib/utils';
 
 interface Props {
@@ -62,5 +62,16 @@ const seoImage = generateAbsoluteUrl(image.src);
       }
     })();
   </script>
+  {GOOGLE_ANALYTICS_ID && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}></script>
+      <script is:inline define:vars={{ gaId: GOOGLE_ANALYTICS_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )}
   <slot />
 </head>

@@ -24,7 +24,7 @@ type DefaultConfigurationType = {
 };
 
 export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
-  baseUrl: astroConfig.site || 'https://getcvfolio.com',
+  baseUrl: astroConfig.site || 'https://www.robguilar.com',
   author: {
     avatar,
     name: 'Roberto Aguilar',
@@ -33,14 +33,18 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
     pronouns: 'He/Him',
   },
   seo: {
-    title: 'CV Folio — An Astro template inspired on Read.cv',
+    title: 'Roberto Aguilar',
     description:
-      'Clean and aesthetic portfolio website for developers and designers',
+      'Roberto Aguilar is an engineer focused on building reliable AI systems that turn ambiguous problems into tangible business growth.',
     type: 'website',
     image: MetaDefaultImage,
     twitter: {
-      creator: '@cvfolio',
+      creator: '@robguilar',
     },
     robots: 'noindex, nofollow',
   },
 };
+
+// Google Analytics tracking ID
+// Set your Google Analytics 4 tracking ID here (format: G-XXXXXXXXXX)
+export const GOOGLE_ANALYTICS_ID = 'G-603CX8ERRB';
