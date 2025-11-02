@@ -41,6 +41,15 @@ npm run dev
 
 The site will be available at `http://localhost:4321`
 
+To build the production site:
+
+```sh
+bun build
+
+# npm
+npm run build
+```
+
 ## Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:
