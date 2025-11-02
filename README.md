@@ -19,7 +19,7 @@ Built with modern web technologies including Astro, React, TailwindCSS, and MDX,
 
 In terms of local development, you can use the following requirements:
 
-- Node.js - v18.17.1 or v20.3.0, v22.0.0 or higher.
+`Node.js - v18.17.1 or v20.3.0, v22.0.0 or higher`
 
 Next, install the dependencies using Bun or NPM:
 
