@@ -141,6 +141,3 @@ npm run build
 
 The output will be in the `dist/` directory, ready to deploy.
 
-## License
-
-See `LICENSE.md` for details.
