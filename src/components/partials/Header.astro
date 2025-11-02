@@ -1,0 +1,43 @@
+---
+import Container from '@/components/Container.astro';
+
+const pathname = Astro.url.pathname;
+
+const isHomePage = pathname === '/';
+const isSpacesPage = pathname.startsWith('/spaces');
+---
+
+<Container
+  as="header"
+  class="w-full max-w-full flex justify-center items-center"
+>
+  <div
+    class="w-max fixed top-0 mt-5 bg-muted-foreground/40 backdrop-blur-3xl border border-border rounded-full p-1"
+  >
+    <nav class="flex items-center">
+      <ul class="flex items-center gap-1">
+        <li>
+          <a
+            href="/"
+            class:list={[
+              'font-medium transition-colors block px-5 py-2',
+              'hover:text-headings',
+              isHomePage && 'text-headings bg-muted-foreground/40 rounded-full',
+            ]}>Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="/spaces"
+            class:list={[
+              'font-medium transition-colors block px-5 py-2',
+              'hover:text-headings',
+              isSpacesPage &&
+                'text-headings bg-muted-foreground/40 rounded-full',
+            ]}>Spaces</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</Container>

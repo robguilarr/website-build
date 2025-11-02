@@ -1,0 +1,27 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Author from '@/components/ui/Author.astro';
+import Container from '@/components/Container.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { DEFAULT_CONFIGURATION } from '@/lib/constants';
+import PostPreview from '@/components/ui/PostPreview.astro';
+import { sortByDate } from '@/lib/utils';
+
+const entry = await getEntry('pages', 'spaces');
+const posts = await getCollection('posts');
+const sortedPosts = sortByDate(posts);
+---
+
+<BaseLayout seo={entry.data.seo}>
+  <Container as='section' class='py-6'>
+    <Author {...DEFAULT_CONFIGURATION.author} />
+  </Container>
+  <Container as='section' class='py-6'>
+    <div class="flex flex-col gap-6">
+      <span class="text-headings">Retention Gate</span>
+      <ul class="flex flex-col gap-3">
+        {sortedPosts.map((post) => <PostPreview entry={post} />)}
+      </ul>
+    </div>
+  </Container>
+</BaseLayout>

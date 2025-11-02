@@ -1,0 +1,152 @@
+---
+import { getEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Author from '@/components/ui/Author.astro';
+import { DEFAULT_CONFIGURATION } from '@/lib/constants';
+import WorkExperience from '@/components/ui/WorkExperience.astro';
+import Achievement from '@/components/ui/Achievement.astro';
+import Volunteering from '@/components/ui/Volunteering.astro';
+import Education from '@/components/ui/Education.astro';
+import Language from '@/components/ui/Language.astro';
+import { sortByDateRange, sortByYear } from '@/lib/utils';
+
+const entry = await getEntry('pages', 'homepage');
+
+if (!entry) {
+  throw new Error('Homepage entry not found');
+}
+
+const { Content } = await render(entry);
+
+const links = await getCollection('links');
+
+const jobs = await getCollection('jobs');
+const sortedJobs = sortByDateRange(jobs);
+
+const achievements = await getCollection('achievements');
+const sortedAchievements = sortByYear(achievements);
+
+const volunteering = await getCollection('volunteering');
+const sortedVolunteering = sortByYear(volunteering);
+
+const education = await getCollection('education');
+const sortedEducation = sortByYear(education);
+
+const languages = await getCollection('languages');
+---
+
+<BaseLayout seo={entry.data.seo}>
+  <Container as="section" class="py-6">
+    <Author {...DEFAULT_CONFIGURATION.author} />
+  </Container>
+
+  <Container as="section" class="py-6">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center">
+        <span class="text-headings">About</span>
+      </div>
+      <div class="prose dark:prose-invert">
+        <Content />
+      </div>
+    </div>
+  </Container>
+  {
+    links.length > 0 && (
+      <Container as="section" class="py-8">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Contact</span>
+          <ul class="flex flex-col gap-3">
+            {links.map((link) => (
+              <li class="py-0.5">
+                <div class="flex items-center gap-5">
+                  <span class="min-w-28 text-muted-foreground">
+                    {link.data.label}
+                  </span>
+                  <a
+                    class="text-headings font-medium"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={link.data.url}
+                  >
+                    {link.data.name}
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    sortedJobs.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Work Experience</span>
+          <ul class="flex flex-col gap-8">
+            {sortedJobs.map((job) => (
+              <WorkExperience entry={job} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    achievements.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Achievements</span>
+          <ul class="flex flex-col gap-8">
+            {sortedAchievements.map((achievement) => (
+              <Achievement entry={achievement} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    volunteering.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Volunteering</span>
+          <ul class="flex flex-col gap-8">
+            {sortedVolunteering.map((volunteer) => (
+              <Volunteering entry={volunteer} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    education.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Education</span>
+          <ul class="flex flex-col gap-8">
+            {sortedEducation.map((edu) => (
+              <Education entry={edu} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    languages.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Languages</span>
+          <ul class="flex flex-col gap-8">
+            {languages.map((language) => (
+              <Language entry={language} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+</BaseLayout>
