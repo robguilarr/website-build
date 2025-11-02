@@ -140,4 +140,3 @@ npm run build
 ```
 
 The output will be in the `dist/` directory, ready to deploy.
-
