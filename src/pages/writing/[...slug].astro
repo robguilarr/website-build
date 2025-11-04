@@ -33,7 +33,7 @@ const { Content } = await render(entry);
         <h1 class="text-3xl font-semibold text-headings">{entry.data.title}</h1>
       </div>
       {entry.data.image && (
-        <div class="relative aspect-video overflow-hidden rounded-lg">
+        <div class="relative overflow-hidden rounded-lg">
           <Image
             src={entry.data.image}
             alt={entry.data.title}
