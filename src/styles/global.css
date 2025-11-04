@@ -27,6 +27,14 @@
   font-size: 1em;
 }
 
+/* Make YouTube embeds responsive */
+.prose iframe[src*="youtube.com"],
+.prose iframe[src*="youtu.be"] {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
 /* Hide KaTeX annotation tags (raw LaTeX source) - MUST be global, not just in .prose */
 annotation,
 .annotation,
