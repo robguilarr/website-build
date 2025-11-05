@@ -70,7 +70,7 @@ article .annotation {
 }
 
 span.katex-display > span.katex > span.katex-html {
-  display: none !important;
+  display: none;
 }
 
 /* Hide raw LaTeX text in previous sibling paragraph */
