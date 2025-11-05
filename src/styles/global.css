@@ -69,6 +69,10 @@ article .annotation {
   padding: 0 !important;
 }
 
+span.katex-display > span.katex > span.katex-html {
+  display: none;
+}
+
 /* Hide raw LaTeX text in previous sibling paragraph */
 /* Based on HTML expert analysis: raw text appears in previousElementSibling <p> */
 /* Note: CSS :has() selector for content matching is limited, so we use JavaScript primarily */
