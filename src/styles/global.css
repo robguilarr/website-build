@@ -69,7 +69,7 @@ article .annotation {
   padding: 0 !important;
 }
 
-span.katex-display > span.katex > span.katex-html {
+span.katex > span.katex-html {
   display: none;
 }
 
